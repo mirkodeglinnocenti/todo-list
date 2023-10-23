@@ -1,6 +1,9 @@
+import { useState } from 'react'
+import Popup from "./components/Popup";
 import "./assets/css/app.css";
 
 function App() {
+  const [isOpen, setIsOpen] = useState(false)
   return (
     <>
       <main className="main">
@@ -16,7 +19,7 @@ function App() {
             </div>
           </div>
           <div className="new-item-box">
-            <button className="button-new-item label-medium shadow">
+            <button onClick={()=> setIsOpen(true)} className="button-new-item label-medium shadow">
               <div className="flex-button">
                 <div className="icon-button">
                   <svg
@@ -28,14 +31,14 @@ function App() {
                     <path
                       d="M33 20L7 20"
                       stroke="var(--text-color)"
-                      stroke-width="3"
-                      stroke-linecap="round"
+                      strokeWidth="3"
+                      strokeLinecap="round"
                     />
                     <path
                       d="M20 33L20 7"
                       stroke="var(--text-color)"
-                      stroke-width="3"
-                      stroke-linecap="round"
+                      strokeWidth="3"
+                      strokeLinecap="round"
                     />
                   </svg>
                 </div>
@@ -47,6 +50,12 @@ function App() {
             </button>
           </div>
         </div>
+        {
+          isOpen ?
+        <Popup/>
+        :
+        ""
+        }
       </main>
     </>
   );
