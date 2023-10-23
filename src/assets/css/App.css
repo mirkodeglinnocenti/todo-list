@@ -1,1 +1,31 @@
+/* Variables */
 @import url('./variables.css');
+
+/* Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Typography */
+h1{
+    font-size: 54px;
+    font-weight: bold;
+}
+
+.label{
+    font-size: 17px;
+    font-weight: 400;
+}
+
+.label-medium{
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.label-strikethrough{
+    font-size: 17px;
+    font-weight: 400;
+    text-decoration: line-through;
+}
