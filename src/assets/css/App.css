@@ -1,5 +1,7 @@
 /* Variables */
 @import url('./variables.css');
+/* Reset rules */
+@import url('./reset.css');
 
 /* Font */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
