@@ -7,13 +7,25 @@ function App() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [tasks, setTasks] = useState<ITask[]>([]);
 
+  useEffect(() => {
+    const savedTasks = localStorage.getItem("tasks");
+
+    if(savedTasks){
+      setTasks(JSON.parse(savedTasks))
+    }
+
+  },[])
+
   // Order tasks
   const undoneTasks = tasks.filter(task => task.done === false);
   const doneTasks = tasks.filter(task => task.done === true);
 
   // Add Task
   const addTask = (newTask: ITask) => {
-    setTasks([...tasks, newTask]);
+    const newTasks = [...tasks, newTask]
+    setTasks(newTasks);
+
+    localStorage.setItem("tasks", JSON.stringify(newTasks))
   };
 
   // SetDone Task
@@ -27,6 +39,8 @@ function App() {
     });
   
     setTasks(updatedTasks);
+
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks))
   }
 
   // Delete Task
@@ -36,6 +50,8 @@ function App() {
     newTasks.splice(index, 1)
 
     setTasks(newTasks)
+    
+    localStorage.setItem("tasks", JSON.stringify(newTasks))
   }
 
   return (
