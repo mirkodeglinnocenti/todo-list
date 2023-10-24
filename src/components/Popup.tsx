@@ -52,12 +52,6 @@ const Popup = ({
         <button type="submit" className="popup-button shadow">
           <span className="label-medium">Salva</span>
         </button>
-        <button
-          onClick={() => setIsOpen(false)}
-          className="popup-button shadow"
-        >
-          <span className="label-medium">Chiudi</span>
-        </button>
       </form>
     </section>
   );
