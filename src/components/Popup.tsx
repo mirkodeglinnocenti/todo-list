@@ -30,6 +30,7 @@ const Popup = ({
           name="text-input"
           id=""
           placeholder="Inserisci voce"
+          autoFocus
         ></textarea>
         <button type="submit" className="popup-button shadow">
           <span className="label-medium">Salva</span>
