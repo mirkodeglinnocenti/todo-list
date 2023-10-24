@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Popup from "./components/Popup";
 import ITask from "./interfaces/ITask";
-import "./assets/css/app.css";
+import "./assets/css/App.css";
 
 function App() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -25,17 +25,21 @@ function App() {
       <main className="main">
         <div className="container">
           <div className="todo-box shadow">
-            <h1 className="title-todo-box">Todo List</h1>
-            <div className="todo-list">
-              <ul>
-                {tasks.map((task, index) => {
-                  return (
-                    <li className="label" key={index}>
-                      {task.name}
-                    </li>
-                  );
-                })}
-              </ul>
+            <div className="todo-card">
+              <h1 className="title-todo-box">Todo List</h1>
+              <div className="todo-list">
+                <ul>
+                  {tasks.map((task, index) => {
+                    return (
+                      <li className="label list-item" key={index}>
+                        <img className="trash-icon" src="./assets/img/Bin.svg" alt="trash icon" />
+                        <img className="checkbox-icon" src="./assets/img/Checkbox_Off.svg" alt="trash icon" />
+                        {task.name}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
             </div>
           </div>
           <div className="new-item-box">
