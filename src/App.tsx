@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Popup from "./components/Popup";
 import ITask from "./interfaces/ITask";
 import "./assets/css/App.css";
@@ -6,6 +6,10 @@ import "./assets/css/App.css";
 function App() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [tasks, setTasks] = useState<ITask[]>([]);
+
+  // Order tasks
+  const undoneTasks = tasks.filter(task => task.done === false);
+  const doneTasks = tasks.filter(task => task.done === true);
 
   // Add Task
   const addTask = (newTask: ITask) => {
@@ -43,7 +47,20 @@ function App() {
               <h1 className="title-todo-box">Todo List</h1>
               <div className="todo-list">
                 <ul>
-                  {tasks.map((task, index) => {
+                  {undoneTasks.map((task, index) => {
+                    return (
+                      <li className="list-item" key={index}>
+                        <span onClick={()=>deleteTask(index)}>
+                        <img className="trash-icon" src="./assets/img/Bin.svg" alt="trash icon" />
+                        </span>
+                        <span onClick={()=>setDone(task)}>
+                        <img className="checkbox-icon" src={task.done ? "./assets/img/Checkbox_On.svg" : "./assets/img/Checkbox_Off.svg"} alt="trash icon" />
+                        </span>
+                        <span className={task.done ? "label-strikethrough" : "label"}>{task.name}</span>
+                      </li>
+                    );
+                  })}
+                  {doneTasks.map((task, index) => {
                     return (
                       <li className="list-item" key={index}>
                         <span onClick={()=>deleteTask(index)}>

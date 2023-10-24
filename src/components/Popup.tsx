@@ -27,7 +27,7 @@ const Popup = ({
         <textarea
           className="text-input"
           onChange={(e) => setName(e.target.value)}
-          name=""
+          name="text-input"
           id=""
           placeholder="Inserisci voce"
         ></textarea>
