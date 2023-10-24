@@ -16,6 +16,10 @@ function App() {
     },
   ]);
 
+  const addTask = (newTask: ITask) => {
+    setTasks([...tasks, newTask]);
+  };
+
   return (
     <>
       <main className="main">
@@ -68,7 +72,7 @@ function App() {
             </button>
           </div>
         </div>
-        {isOpen ? <Popup setIsOpen={setIsOpen} /> : ""}
+        {isOpen ? <Popup setIsOpen={setIsOpen} addTask={addTask} /> : ""}
       </main>
     </>
   );
