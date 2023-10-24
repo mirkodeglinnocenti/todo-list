@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./Popup.css";
 import ITask from "../interfaces/ITask";
 
@@ -10,6 +10,8 @@ const Popup = ({
   addTask: (newTask: ITask) => void;
 }) => {
   const [name, setName] = useState<string>("");
+  const popupRef: any = useRef();
+
   const formSubmit = () => {
     const task: ITask = {
       name: name,
@@ -21,9 +23,24 @@ const Popup = ({
     setName("");
   };
 
+  // Popup closure when the click is out
+  useEffect(() => {
+    let closePopup = (e: any) => {
+      if (!popupRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", closePopup);
+
+    return () => {
+      document.removeEventListener("mousedown", closePopup);
+    };
+  });
+
   return (
     <section className="popup-section">
-      <form className="popup" onSubmit={formSubmit}>
+      <form className="popup" ref={popupRef} onSubmit={formSubmit}>
         <textarea
           className="text-input"
           onChange={(e) => setName(e.target.value)}
