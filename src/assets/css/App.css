@@ -110,11 +110,13 @@ h1 {
 .trash-icon {
   width: 40px;
   margin-right: 40px;
+  cursor: pointer;
 }
 
 .checkbox-icon {
   width: 40px;
   margin-right: 24px;
+  cursor: pointer;
 }
 
 /* New-item-box */

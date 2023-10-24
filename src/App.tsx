@@ -5,20 +5,34 @@ import "./assets/css/App.css";
 
 function App() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [tasks, setTasks] = useState<ITask[]>([
-    {
-      name: "LOREM ISPSUM",
-      done: false,
-    },
-    {
-      name: "LOREM ISPSUM ciao",
-      done: false,
-    },
-  ]);
+  const [tasks, setTasks] = useState<ITask[]>([]);
 
+  // Add Task
   const addTask = (newTask: ITask) => {
     setTasks([...tasks, newTask]);
   };
+
+  // SetDone Task
+  function setDone(task: ITask) {
+
+    const updatedTasks = tasks.map((el) => {
+      if (el === task) {
+        return { ...el, done: !el.done };
+      }
+      return el;
+    });
+  
+    setTasks(updatedTasks);
+  }
+
+  // Delete Task
+  const deleteTask = (index: number) => {
+
+    const newTasks = [...tasks]
+    newTasks.splice(index, 1)
+
+    setTasks(newTasks)
+  }
 
   return (
     <>
@@ -31,10 +45,14 @@ function App() {
                 <ul>
                   {tasks.map((task, index) => {
                     return (
-                      <li className="label list-item" key={index}>
+                      <li className="list-item" key={index}>
+                        <span onClick={()=>deleteTask(index)}>
                         <img className="trash-icon" src="./assets/img/Bin.svg" alt="trash icon" />
-                        <img className="checkbox-icon" src="./assets/img/Checkbox_Off.svg" alt="trash icon" />
-                        {task.name}
+                        </span>
+                        <span onClick={()=>setDone(task)}>
+                        <img className="checkbox-icon" src={task.done ? "./assets/img/Checkbox_On.svg" : "./assets/img/Checkbox_Off.svg"} alt="trash icon" />
+                        </span>
+                        <span className={task.done ? "label-strikethrough" : "label"}>{task.name}</span>
                       </li>
                     );
                   })}
