@@ -1,9 +1,21 @@
-import { useState } from 'react'
+import { useState } from "react";
 import Popup from "./components/Popup";
+import ITask from "./interfaces/ITask";
 import "./assets/css/app.css";
 
 function App() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [tasks, setTasks] = useState<ITask[]>([
+    {
+      name: "LOREM ISPSUM",
+      done: false,
+    },
+    {
+      name: "LOREM ISPSUM ciao",
+      done: false,
+    },
+  ]);
+
   return (
     <>
       <main className="main">
@@ -12,14 +24,21 @@ function App() {
             <h1 className="title-todo-box">Todo List</h1>
             <div className="todo-list">
               <ul>
-                <li className="label">Lorem ipsum dolor sit.</li>
-                <li className="label">Lorem ipsum dolor sit.</li>
-                <li className="label">Lorem ipsum dolor sit.</li>
+                {tasks.map((task, index) => {
+                  return (
+                    <li className="label" key={index}>
+                      {task.name}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </div>
           <div className="new-item-box">
-            <button onClick={()=> setIsOpen(true)} className="button-new-item label-medium shadow">
+            <button
+              onClick={() => setIsOpen(true)}
+              className="button-new-item label-medium shadow"
+            >
               <div className="flex-button">
                 <div className="icon-button">
                   <svg
@@ -43,19 +62,13 @@ function App() {
                   </svg>
                 </div>
                 <div>
-
-                <span className="label-medium">Nuova voce</span>
+                  <span className="label-medium">Nuova voce</span>
                 </div>
               </div>
             </button>
           </div>
         </div>
-        {
-          isOpen ?
-        <Popup setIsOpen={setIsOpen}/>
-        :
-        ""
-        }
+        {isOpen ? <Popup setIsOpen={setIsOpen} /> : ""}
       </main>
     </>
   );

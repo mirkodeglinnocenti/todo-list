@@ -1,4 +1,4 @@
- export default interface ITask {
+export default interface ITask {
     name: string;
     done: boolean;
 }
