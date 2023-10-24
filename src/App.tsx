@@ -52,7 +52,7 @@ function App() {
         </div>
         {
           isOpen ?
-        <Popup/>
+        <Popup setIsOpen={setIsOpen}/>
         :
         ""
         }

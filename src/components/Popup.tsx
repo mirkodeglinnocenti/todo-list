@@ -1,10 +1,9 @@
-import { useState } from 'react'
 import "./Popup.css";
 
-const Popup = () => {
-    const [isOpen, setIsOpen] = useState(true)
+const Popup = ({setIsOpen} : {setIsOpen: (isOpen: boolean) => void}) => {
+
   return (
-    <section className={isOpen ? "popup-section" : "hidden"}>
+    <section className="popup-section">
       <div className="popup">
         <textarea
           className="text-input"
