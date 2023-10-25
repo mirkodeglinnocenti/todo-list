@@ -5,50 +5,83 @@ import "./assets/css/App.css";
 
 function App() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [tasks, setTasks] = useState<ITask[]>([]);
+  const [undoneTasks, setUndoneTasks] = useState<ITask[]>([]);
+  const [doneTasks, setDoneTasks] = useState<ITask[]>([]);
 
   useEffect(() => {
     const savedTasks = localStorage.getItem("tasks");
+    const undoneArray: ITask[] = [];
+    const doneArray: ITask[] = [];
 
     if (savedTasks) {
-      setTasks(JSON.parse(savedTasks));
+      const tasksArray = JSON.parse(savedTasks);
+      tasksArray.forEach((el: ITask) => {
+        if (el.done === false) {
+          undoneArray.push(el);
+        } else {
+          doneArray.push(el);
+        }
+      });
+
+      setUndoneTasks(undoneArray);
+      setDoneTasks(doneArray);
     }
   }, []);
 
-  // Order tasks
-  const undoneTasks = tasks.filter((task) => task.done === false);
-  const doneTasks = tasks.filter((task) => task.done === true);
-
   // Add Task
   const addTask = (newTask: ITask) => {
-    const newTasks = [...tasks, newTask];
-    setTasks(newTasks);
+    const newTasks = [...undoneTasks, newTask];
+    setUndoneTasks(newTasks);
 
-    localStorage.setItem("tasks", JSON.stringify(newTasks));
+    let tasks = [...newTasks, ...doneTasks];
+    localStorage.setItem("tasks", JSON.stringify(tasks));
   };
 
   // SetDone Task
-  function setDone(task: ITask) {
-    const updatedTasks = tasks.map((el) => {
-      if (el === task) {
-        return { ...el, done: !el.done };
-      }
-      return el;
-    });
+  function setDone(task: ITask, index: number) {
+    let newUndoneTasks: any;
+    let newDoneTasks: any;
+    let newTasks;
 
-    setTasks(updatedTasks);
+    if (task.done === false) {
+      newTasks = [...undoneTasks];
+      newTasks.splice(index, 1);
+      setUndoneTasks(newTasks);
 
-    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+      task.done = !task.done;
+      newDoneTasks = [...doneTasks, task];
+      setDoneTasks(newDoneTasks);
+    } else {
+      newTasks = [...doneTasks];
+      newTasks.splice(index, 1);
+      setDoneTasks(newTasks);
+      task.done = !task.done;
+      newUndoneTasks = [...undoneTasks, task];
+      setUndoneTasks(newUndoneTasks);
+    }
+
+    let tasks = [...undoneTasks, ...doneTasks];
+    localStorage.setItem("tasks", JSON.stringify(tasks));
   }
 
   // Delete Task
-  const deleteTask = (index: number) => {
-    const newTasks = [...tasks];
-    newTasks.splice(index, 1);
+  const deleteTask = (done: Boolean, index: number) => {
+    let newTasks;
+    let tasks;
 
-    setTasks(newTasks);
+    if (done === false) {
+      newTasks = [...undoneTasks];
+      newTasks.splice(index, 1);
+      setUndoneTasks(newTasks);
+      tasks = [...newTasks, ...doneTasks];
+    } else {
+      newTasks = [...doneTasks];
+      newTasks.splice(index, 1);
+      setDoneTasks(newTasks);
+      tasks = [...undoneTasks, ...newTasks];
+    }
 
-    localStorage.setItem("tasks", JSON.stringify(newTasks));
+    localStorage.setItem("tasks", JSON.stringify(tasks));
   };
 
   return (
@@ -64,13 +97,13 @@ function App() {
                     return (
                       <li className="list-item" key={index}>
                         <img
-                          onClick={() => deleteTask(index)}
+                          onClick={() => deleteTask(task.done, index)}
                           className="trash-icon"
                           src="./assets/img/Bin.svg"
                           alt="trash icon"
                         />
                         <img
-                          onClick={() => setDone(task)}
+                          onClick={() => setDone(task, index)}
                           className="checkbox-icon"
                           src={
                             task.done
@@ -92,14 +125,14 @@ function App() {
                   {doneTasks.map((task, index) => {
                     return (
                       <li className="list-item" key={index}>
-                        <span onClick={() => deleteTask(index)}>
+                        <span onClick={() => deleteTask(task.done, index)}>
                           <img
                             className="trash-icon"
                             src="./assets/img/Bin.svg"
                             alt="trash icon"
                           />
                         </span>
-                        <span onClick={() => setDone(task)}>
+                        <span onClick={() => setDone(task, index)}>
                           <img
                             className="checkbox-icon"
                             src={
