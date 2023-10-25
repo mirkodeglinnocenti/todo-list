@@ -96,22 +96,22 @@ function App() {
                   {undoneTasks.map((task, index) => {
                     return (
                       <li className="list-item" key={index}>
-                        <img
-                          onClick={() => deleteTask(task.done, index)}
-                          className="trash-icon"
-                          src="./assets/img/Bin.svg"
-                          alt="trash icon"
-                        />
-                        <img
-                          onClick={() => setDone(task, index)}
-                          className="checkbox-icon"
-                          src={
-                            task.done
-                              ? "./assets/img/Checkbox_On.svg"
-                              : "./assets/img/Checkbox_Off.svg"
-                          }
-                          alt="trash icon"
-                        />
+                        <span className="trash-icon" onClick={() => deleteTask(task.done, index)}>
+                          <img
+                            src="./assets/img/Bin.svg"
+                            alt="trash icon"
+                          />
+                        </span>
+                        <span className="checkbox-icon" onClick={() => setDone(task, index)}>
+                          <img
+                            src={
+                              task.done
+                                ? "./assets/img/Checkbox_On.svg"
+                                : "./assets/img/Checkbox_Off.svg"
+                            }
+                            alt="trash icon"
+                          />
+                        </span>
                         <span
                           className={
                             task.done ? "label-strikethrough" : "label"
@@ -125,16 +125,14 @@ function App() {
                   {doneTasks.map((task, index) => {
                     return (
                       <li className="list-item" key={index}>
-                        <span onClick={() => deleteTask(task.done, index)}>
+                        <span className="trash-icon" onClick={() => deleteTask(task.done, index)}>
                           <img
-                            className="trash-icon"
                             src="./assets/img/Bin.svg"
                             alt="trash icon"
                           />
                         </span>
-                        <span onClick={() => setDone(task, index)}>
+                        <span className="checkbox-icon" onClick={() => setDone(task, index)}>
                           <img
-                            className="checkbox-icon"
                             src={
                               task.done
                                 ? "./assets/img/Checkbox_On.svg"
