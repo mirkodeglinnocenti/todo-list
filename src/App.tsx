@@ -90,7 +90,7 @@ function App() {
         <div className="container">
           <div className="todo-box shadow">
             <div className="todo-card">
-              <h1 className="title-todo-box">Todo List</h1>
+              <h1 className="title-todo-box">Titolo</h1>
               <div className="todo-list">
                 <ul>
                   {undoneTasks.map((task, index) => {
