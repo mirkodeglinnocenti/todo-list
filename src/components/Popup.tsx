@@ -12,7 +12,15 @@ const Popup = ({
   const [name, setName] = useState<string>("");
   const popupRef: any = useRef();
 
-  const formSubmit = () => {
+  const formSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    let text = name.trim();
+
+    // prevent adding an empty string
+    if (text === "") {
+      return;
+    }
     const task: ITask = {
       name: name,
       done: false,
