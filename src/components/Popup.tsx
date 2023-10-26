@@ -12,7 +12,7 @@ const Popup = ({
   const [name, setName] = useState<string>("");
   const popupRef: any = useRef();
 
-  const formSubmit = (e: React.FormEvent) => {
+  const formSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
 
     let text = name.trim();
