@@ -99,16 +99,29 @@ h1 {
   margin-bottom: 40px;
 }
 
-.trash-icon {
+.list-icon {
   width: 40px;
-  margin-right: 40px;
   cursor: pointer;
 }
 
+.trash-icon {
+  margin-right: 40px;
+}
+
 .checkbox-icon {
-  width: 40px;
   margin-right: 24px;
-  cursor: pointer;
+  position: relative;
+}
+
+.checkbox-icon:hover::after{
+  content: "";
+  border-radius: 50%;
+  background-color: rgba(43, 76, 80, 0.1);
+  position: absolute;
+  top: -35%;
+  left: -35%;
+  right: -35%;
+  bottom: -35%;
 }
 
 /* New-item-box */

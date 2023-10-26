@@ -8,6 +8,7 @@ function App() {
   const [undoneTasks, setUndoneTasks] = useState<ITask[]>([]);
   const [doneTasks, setDoneTasks] = useState<ITask[]>([]);
 
+  // getitem from localStorage
   useEffect(() => {
     const savedTasks = localStorage.getItem("tasks");
     const undoneArray: ITask[] = [];
@@ -96,13 +97,13 @@ function App() {
                   {undoneTasks.map((task, index) => {
                     return (
                       <li className="list-item" key={index}>
-                        <span className="trash-icon" onClick={() => deleteTask(task.done, index)}>
+                        <span className="list-icon trash-icon" onClick={() => deleteTask(task.done, index)}>
                           <img
                             src="./assets/img/Bin.svg"
                             alt="trash icon"
                           />
                         </span>
-                        <span className="checkbox-icon" onClick={() => setDone(task, index)}>
+                        <span className="list-icon checkbox-icon" onClick={() => setDone(task, index)}>
                           <img
                             src={
                               task.done
@@ -125,13 +126,13 @@ function App() {
                   {doneTasks.map((task, index) => {
                     return (
                       <li className="list-item" key={index}>
-                        <span className="trash-icon" onClick={() => deleteTask(task.done, index)}>
+                        <span className="list-icon trash-icon" onClick={() => deleteTask(task.done, index)}>
                           <img
                             src="./assets/img/Bin.svg"
                             alt="trash icon"
                           />
                         </span>
-                        <span className="checkbox-icon" onClick={() => setDone(task, index)}>
+                        <span className="list-icon checkbox-icon" onClick={() => setDone(task, index)}>
                           <img
                             src={
                               task.done
